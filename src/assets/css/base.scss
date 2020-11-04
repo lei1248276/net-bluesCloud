@@ -1,0 +1,91 @@
+// 背景颜色
+$bc: #ce3d3e;
+$color: #666666;
+$active: #ce3d3e;
+$activeBc: #f5eaea;
+
+// 水平垂直居中
+@mixin center($top: 50%, $left: 50%) {
+  position: absolute;
+  top: $top;
+  left: $left;
+  transform: translate3d(-50%, -50%, 0);
+}
+
+// 水平垂直居中（margin版）
+@mixin marCenter($top, $left, $mt, $ml) {
+  position: absolute;
+  top: $top;
+  left: $left;
+  margin-top: $mt;
+  margin-left: $ml;
+}
+
+// 水平居中
+@mixin rl($left: 50%) {
+  position: absolute;
+  left: $left;
+  transform: translate3d(-50%, 0, 0);
+  //margin: 0 auto;
+}
+
+// 垂直居中
+@mixin tb {
+  position: absolute;
+  top: 50%;
+  transform: translate3d(0, -50%, 0);
+}
+
+// 字体大小、行高、字体
+@mixin font($size, $line-height, $family: 'Microsoft YaHei') {
+  font: #{$size}/#{$line-height} $family;
+}
+
+// 字体大小、字体颜色
+@mixin fc($size, $color) {
+  font-size: $size;
+  color: $color;
+}
+
+// 宽高
+@mixin wh($width, $height) {
+  width: $width;
+  height: $height;
+}
+
+// better-scroll固定高度内容区
+@mixin bsContent($top: 0, $bottom: 0) {
+  position: absolute;
+  top: $top;
+  left: 0;
+  right: 0;
+  bottom: $bottom;
+  overflow: hidden;
+}
+
+// 标题样式
+@mixin title{
+  @include wh(100%, 35px);
+  @include font(16px, 35px);
+  color: #333;
+  text-indent: 5px;
+}
+
+// 复合图层硬件加速
+@mixin speed($X: 0, $Y: 0, $Z: 0) {
+  transform: translate3d($X, $Y ,$Z);
+  z-index: 999;
+}
+
+// 内容省略
+@mixin omit{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// 点击效果
+@mixin active{
+  background-color: rgba(0, 0, 0, .2);
+  border-radius: 50%;
+}
