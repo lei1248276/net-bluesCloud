@@ -15,7 +15,7 @@ export default {
   // 设置播放
   [types.SET_PLAY](state, payload) {
     state.isPlay = payload;
-    if (payload) {
+    if (state.audio.readyState > 2 && payload) {
       state.audio.play();
     } else {
       state.audio.pause();
@@ -32,6 +32,7 @@ export default {
   },
   // 添加歌曲
   [types.ADD_SONG](state, payload) {
+    if (!Array.isArray(payload)) payload = [payload];
     state.playerList.unshift(...payload);
   },
   // 删除歌曲
@@ -54,8 +55,8 @@ export default {
     } else {
       this.commit(types.SET_CURRENT_PLAY_INDEX, state.currentPlayIndex - 1);
     }
-    this.commit(types.SET_PLAY, true);
     this.dispatch('getSong', state.playerList[state.currentPlayIndex].id);
+    this.commit(types.SET_PLAY, true);
   },
   // 点击下一首
   [types.SET_NEXT_SONG](state) {
@@ -65,8 +66,8 @@ export default {
     } else {
       this.commit(types.SET_CURRENT_PLAY_INDEX, state.currentPlayIndex + 1);
     }
-    this.commit(types.SET_PLAY, true);
     this.dispatch('getSong', state.playerList[state.currentPlayIndex].id);
+    this.commit(types.SET_PLAY, true);
   },
   // 设置当前播放列表歌曲请求URL和Lrc
   [types.SET_CURRENT_PLAY_URL](state, payload) {
@@ -106,6 +107,7 @@ export default {
   /* * * * * * * * * * * * * * * * * * songs * * * * * * * * * * * * * * * * * */
   // 设置添加收藏歌曲
   [types.ADD_COLLECT](state, payload) {
+    if (!Array.isArray(payload)) payload = [payload];
     state.collectSongs.unshift(...payload);
     localStorage.setItem('collectSongs', JSON.stringify(state.collectSongs));
   },
@@ -122,6 +124,7 @@ export default {
   },
   // 设置添加收藏歌单
   [types.ADD_COL_SONG_LIST](state, payload) {
+    if (!Array.isArray(payload)) payload = [payload];
     state.colSongList.unshift(...payload);
     localStorage.setItem('colSongList', JSON.stringify(state.colSongList));
   },

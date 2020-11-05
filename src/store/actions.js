@@ -11,9 +11,10 @@ export default {
           if (arr[0] == null) {
             throw new Error('链接无效');
           } else {
+            console.log(`初次请求`);
+            // 添加到缓存
             commit(types.SET_CURRENT_PLAY_URL, arr);
             commit(types.SET_CACHE_URL, arr);
-            console.log(`没使用缓存`);
             resolve('添加成功');
           }
         }).catch(() => {
@@ -31,7 +32,12 @@ export default {
           // 大于两首时，换歌出错
           if (state.playerList.length > 2) {
             commit(types.DELETE_SONG, state.currentPlayIndex);
-            commit(types.SET_CURRENT_PLAY_INDEX, state.currentPlayIndex);
+            // 最后一首时
+            if (state.currentPlayIndex === state.playerList.length) {
+              commit(types.SET_CURRENT_PLAY_INDEX, 0);
+            } else {
+              commit(types.SET_CURRENT_PLAY_INDEX, state.currentPlayIndex);
+            }
             dispatch('getSong', state.playerList[state.currentPlayIndex].id);
             reject('链接无效换下一曲');
           }

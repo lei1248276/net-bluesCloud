@@ -2,7 +2,7 @@
   <transition name="p_animation">
     <div id="player-page">
       <!--    背景图片    -->
-      <img :src="getBgPic" alt="" class="bgImg" v-show="getPlayerLength">
+      <img :src="getBgPic" alt="" class="bgImg" v-show="!isEmptyPlayer">
 
       <!--    主题背景    -->
       <div class="theme"></div>
@@ -72,7 +72,6 @@ export default {
     return {
       isShowMask: false,
       isChange: false,
-      currentMode: 0,
       mode: [
           require('@/assets/img/playerPage/loop.png'),
           require('@/assets/img/playerPage/singleLoop.png')
@@ -89,7 +88,7 @@ export default {
     ...mapGetters([
         'getPlayerList',
         'getCurrentPlayIndex',
-        'getPlayerLength',
+        'isEmptyPlayer',
         'getProgressTime',
         'getDuration',
         'getProgressMove',
@@ -101,22 +100,22 @@ export default {
         'getPlayMode'
     ]),
     getBgPic() {
-      return this.getPlayerLength > 0
+      return !this.isEmptyPlayer
           ? this.getPlayerList[this.getCurrentPlayIndex].albumPic + '?param=500y800'
           : '';
     },
     getAnimationPic() {
-      return this.getPlayerLength > 0
+      return !this.isEmptyPlayer
           ? this.getPlayerList[this.getCurrentPlayIndex].albumPic + '?param=165y165'
           : require('@/assets/img/playerPage/player-default.png');
     },
     songName() {
-      return this.getPlayerLength > 0
+      return !this.isEmptyPlayer
           ? this.getPlayerList[this.getCurrentPlayIndex].name
           : '歌曲名称';
     },
     singer() {
-      return this.getPlayerLength > 0
+      return !this.isEmptyPlayer
           ? this.getPlayerList[this.getCurrentPlayIndex].singer
           : '演唱者';
     },
@@ -228,7 +227,6 @@ export default {
     // touch滚轴结束时
     onChangedE() {
       this.isChange = false;
-      this.getAudio.play();
       this[types.SET_PLAY](true);
       // 根据移动距离修改歌曲时间
       this.getAudio.currentTime = this.distance * this.DValue;
@@ -246,7 +244,7 @@ export default {
   watch: {
     // 切换歌曲重新处理歌词
     getDuration() {
-      if (this.getPlayerLength) {
+      if (!this.isEmptyPlayer) {
         console.log(`更新`);
         this.handleLrc();
       }

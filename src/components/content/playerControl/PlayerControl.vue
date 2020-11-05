@@ -49,7 +49,6 @@ export default {
   computed: {
     ...mapGetters([
         'getCurrentPlayIndex',
-        'getPlayerLength',
         'getIsPlay',
         'getAudio'
     ])
@@ -65,10 +64,8 @@ export default {
     onPlay() {
       if (this.getIsPlay) {
         this[types.SET_PLAY](false);
-        this.getAudio.pause();
       } else {
         this[types.SET_PLAY](true);
-        this.getAudio.play();
       }
     },
     // 点击上一首

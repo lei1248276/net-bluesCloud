@@ -3,7 +3,7 @@
     <div class="play-queue">
       <div class="playlist">
         <div class="listNav">
-          <p class="title">播放列表({{ this.getPlayerList.length }})</p>
+          <p class="title">播放列表({{ this.getSizePlayer }})</p>
           <img :src="checkMode" alt="" class="mode" @click="onMode">
           <p class="collection" @click="onColAll">收藏全部</p>
           <img src="@/assets/img/icon/delete.png" alt="" class="trash" @click="onDeleteAll">
@@ -33,7 +33,6 @@ export default {
   name: "PlayQueue",
   data() {
     return {
-      currentMode: 0,
       mode: [
         require('@/assets/img/icon/q_loop.png'),
         require('@/assets/img/icon/q_singleLoop.png')
@@ -46,7 +45,8 @@ export default {
         'getPlayerList',
         'getCurrentPlayID',
         'getCurrentPlayIndex',
-        'getPlayerLength',
+        'isEmptyPlayer',
+        'getSizePlayer',
         'getAudio',
         'getCollectSongs',
         'getPlaylistInfo',
@@ -80,13 +80,13 @@ export default {
       this[types.DELETE_SONG](index);
 
       // 2.删除项是最后一项（因为首先执行删除，列表长度减少）且不是当前播放歌曲时
-      if (this.getPlayerLength > 0
-          && this.getPlayerLength === index
+      if (!this.isEmptyPlayer
+          && this.getSizePlayer === index
           && index === this.getCurrentPlayIndex) {
         this[types.SET_CURRENT_PLAY_INDEX](this.getCurrentPlayIndex - 1);
       }
       // 3.删除项是当前播放歌曲并且总长度大于1时（保持index不变）
-      if (this.getPlayerLength > 0 && index === this.getCurrentPlayIndex) {
+      if (!this.isEmptyPlayer && index === this.getCurrentPlayIndex) {
         this[types.SET_CURRENT_PLAY_INDEX](this.getCurrentPlayIndex);
         this[types.SET_PLAY](true);
         this.$store.dispatch('getSong', this.getCurrentPlayID)
@@ -104,7 +104,7 @@ export default {
         // 删除项不是当前播放歌曲并且大于当前播放歌曲index（此情况不考虑）
       }
 
-      if (this.getPlayerLength === 0) {
+      if (this.isEmptyPlayer) {
         this.$emit('offMask');
       }
     },

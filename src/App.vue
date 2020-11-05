@@ -54,10 +54,8 @@ export default {
     window.addEventListener('keypress', (e) => {
       if (e.code === 'Space') {
         if (this.getIsPlay) {
-          this.getAudio.pause();
           this[types.SET_PLAY](!this.getIsPlay);
         } else {
-          this.getAudio.play();
           this[types.SET_PLAY](!this.getIsPlay);
         }
       } else if (e.code === 'Comma') {

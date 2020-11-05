@@ -69,7 +69,8 @@ export default {
     ...mapGetters([
         'getPlayerList',
         'getCurrentPlayIndex',
-        'getPlayerLength',
+        'getSizePlayer',
+        'isEmptyPlayer',
         'getCurrentPlayUrl',
         'getCacheUrl',
         'getIsPlay',
@@ -77,7 +78,7 @@ export default {
         'getProgressMove'
     ]),
     audioSrc() {
-      if (this.getPlayerLength > 0) {
+      if (!this.isEmptyPlayer) {
         if (this.getCacheUrl) {
           return this.getCacheUrl;
         } else {
@@ -88,17 +89,17 @@ export default {
       }
     },
     getAlbumPic() {
-      return this.getPlayerLength > 0
+      return !this.isEmptyPlayer
           ? this.getPlayerList[this.getCurrentPlayIndex].albumPic + '?param=54y52'
           : require('@/assets/img/playerPage/player-default.png');
     },
     getSongName() {
-      return this.getPlayerLength > 0
+      return !this.isEmptyPlayer
           ? this.getPlayerList[this.getCurrentPlayIndex].name
           : '歌曲名称';
     },
     getSinger() {
-      return this.getPlayerLength > 0
+      return !this.isEmptyPlayer
           ? this.getPlayerList[this.getCurrentPlayIndex].singer
           : '演唱者';
     },
@@ -116,7 +117,7 @@ export default {
 
     // 跳转到对应歌曲详情页面
     toPlayerPage() {
-      if (this.getPlayerLength) {
+      if (!this.isEmptyPlayer) {
         this.$router.push(`/playerPage/${this.getPlayerList[this.getCurrentPlayIndex].id}`);
       }
     },
@@ -133,7 +134,7 @@ export default {
 
     // audio开始加载时
     onLoadstart() {
-      if (this.getPlayerLength) {
+      if (!this.isEmptyPlayer) {
         this.isLoad = true;
       }
     },
@@ -159,7 +160,7 @@ export default {
 
     // audio报错时
     isErr() {
-      if (this.getPlayerLength) {
+      if (!this.isEmptyPlayer) {
         this[types.SET_NEXT_SONG]();
       }
     },

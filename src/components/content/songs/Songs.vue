@@ -142,7 +142,7 @@ export default {
       if (!this.getPlayerList.find(value => value.id === song.id)) {
         // 1.2.不存在就添加到播放列表
         console.log(this.$route.name);
-        this[types.ADD_SONG]([{
+        this[types.ADD_SONG]({
           id: song.id,
           name: song.name,
           singer: song.singer || song.ar[0].name,
@@ -150,7 +150,7 @@ export default {
           fromPL: this.$route.name === 'collect'
               ? this.getCollectSongs[index].fromPL
               : this.getPlaylistInfo
-        }]);
+        });
         this[types.SET_CURRENT_PLAY_INDEX](0);
 
       } else {
@@ -166,13 +166,13 @@ export default {
     onCollect(item) {
       let index = this.getCollectSongs.findIndex(value => value.id === item.id);
       if (index === -1) {
-        this[types.ADD_COLLECT]([{
+        this[types.ADD_COLLECT]({
           id: item.id,
           name: item.name,
           singer: item.singer || item.ar[0].name,
           albumPic: item.albumPic || item.al.picUrl,
           fromPL: this.getPlaylistInfo
-        }]);
+        });
       } else {
         this[types.DELETE_COLLECT](index);
       }
@@ -187,7 +187,7 @@ export default {
     onColSongList(items) {
       let index = this.getColSongList.findIndex(value => value.id === items.id);
       if (index === -1) {
-        this[types.ADD_COL_SONG_LIST]([items]);
+        this[types.ADD_COL_SONG_LIST](items);
       } else {
         this[types.DEL_COL_SONG_LIST](index);
       }
