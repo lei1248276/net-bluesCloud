@@ -229,7 +229,9 @@ export default {
       this.isChange = false;
       this[types.SET_PLAY](true);
       // 根据移动距离修改歌曲时间
-      this.getAudio.currentTime = this.distance * this.DValue;
+      if (this.distance != null) {
+        this.getAudio.currentTime = this.distance * this.DValue;
+      }
     },
 
     // 点击时间线时
@@ -376,6 +378,7 @@ export default {
         @include wh(80%, 40px);
         margin: 0 auto;
         font-size: 18px;
+        overflow: hidden;
       }
     }
     .p_control{

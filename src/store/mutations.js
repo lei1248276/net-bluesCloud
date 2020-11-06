@@ -56,7 +56,7 @@ export default {
       this.commit(types.SET_CURRENT_PLAY_INDEX, state.currentPlayIndex - 1);
     }
     this.dispatch('getSong', state.playerList[state.currentPlayIndex].id);
-    this.commit(types.SET_PLAY, true);
+    // this.commit(types.SET_PLAY, true);
   },
   // 点击下一首
   [types.SET_NEXT_SONG](state) {
@@ -67,7 +67,7 @@ export default {
       this.commit(types.SET_CURRENT_PLAY_INDEX, state.currentPlayIndex + 1);
     }
     this.dispatch('getSong', state.playerList[state.currentPlayIndex].id);
-    this.commit(types.SET_PLAY, true);
+    // this.commit(types.SET_PLAY, true);
   },
   // 设置当前播放列表歌曲请求URL和Lrc
   [types.SET_CURRENT_PLAY_URL](state, payload) {
