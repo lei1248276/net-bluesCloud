@@ -123,8 +123,7 @@ export default {
     }
   },
   // 设置添加收藏歌单
-  [types.ADD_COL_SONG_LIST](state, payload) {
-    if (!Array.isArray(payload)) payload = [payload];
+  [types.ADD_COL_SONG_LIST](state, ...payload) {
     state.colSongList.unshift(...payload);
     localStorage.setItem('colSongList', JSON.stringify(state.colSongList));
   },

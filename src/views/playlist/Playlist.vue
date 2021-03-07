@@ -49,7 +49,7 @@ import LoadWait from "@/components/content/loadWait/LoadWait";
 import PlaylistNav from "@/components/content/playlistNav/PlaylistNav";
 import Songs from "@/components/content/songs/Songs";
 
-import {getPlayListDetail} from "@/network/playlist";
+import {getPlaylistDetail, getPlaylistSongDetail} from "@/network/playlist";
 import {mapGetters} from 'vuex';
 
 export default {
@@ -73,6 +73,11 @@ export default {
     this.loadData();
     // console.log(performance.now());
   },
+  /*beforeRouteUpdate(to, from, next) {
+    console.log(`beforeRouteUpdate`);
+    this.loadData();
+    next();
+  },*/
   // 在页面销毁之前手动销毁better-scroll滚动事件（防止事件累加）
   beforeDestroy() {
     this.$refs.scroll.off('scroll', this.$refs.scroll.handleScroll);
@@ -85,10 +90,17 @@ export default {
   methods: {
     // 请求网络数据方法
     loadData() {
-      getPlayListDetail(this.getPlaylistInfo.id).then(res => {
-        this.songList = res.playlist.tracks;
+      getPlaylistDetail(this.getPlaylistInfo.id).then(res => {
+        let trackIds = res.playlist.trackIds,
+            len = trackIds.length,
+            ids = trackIds[0].id;
+        for (let i = 1; i < len; i++) {
+          ids += `,${trackIds[i].id}`
+        }
+        return getPlaylistSongDetail(ids);
+      }).then(res => {
+        this.songList = res.songs;
         this.isLoading = true;
-        // console.log(this.songList);
       }).catch(err => {
         console.log('歌单加载失败：' + err);
       })
@@ -122,6 +134,11 @@ export default {
               : v;
     }
   },
+  watch: {
+    $route() {
+      this.loadData();
+    }
+  }
 }
 </script>
 

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const _baseUrl = 'http://api.javaswing.cn';
-const _baseUrl2 = 'https://api.imjad.cn/cloudmusic/';
+// const _baseUrl = 'http://api.javaswing.cn';
+const _baseUrl = 'https://api.mtnhao.com';
 
 export default function request(config) {
   const instance = axios.create({

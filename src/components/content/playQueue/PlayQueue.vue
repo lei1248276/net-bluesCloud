@@ -1,6 +1,6 @@
 <template>
   <transition name="animation">
-    <div class="play-queue">
+    <div class="play-queue" @click="$emit('offMask')">
       <div class="playlist">
         <div class="listNav">
           <p class="title">播放列表({{ this.getSizePlayer }})</p>
@@ -9,14 +9,14 @@
           <img src="@/assets/img/icon/delete.png" alt="" class="trash" @click="onDeleteAll">
         </div>
         <div class="list">
-          <div class="listItems" v-for="(items, index) in getPlayerList" :key="index"
+          <div class="listItems" v-for="(item, index) in getPlayerList" :key="item.id"
                :class="{isActive: getCurrentPlayIndex === index}" @click="onSwitchSong(index)">
             <div class="listInfo">
-              <p class="name">{{ items.name }}</p>
-              <span class="singer"> -- {{ items.singer }}</span>
+              <p class="name">{{ item.name }}</p>
+              <span class="singer"> -- {{ item.singer }}</span>
             </div>
             <p class="source" v-show="getCurrentPlayIndex === index"
-               @click.stop="onSource(items)">播放来源</p>
+               @click.stop="onSource(item)">播放来源</p>
             <i @click.stop="onDeleteSong(index)" class="delete">X</i>
           </div>
         </div>
@@ -123,7 +123,11 @@ export default {
     onSource(song) {
       const id = song.fromPL.id;
       if (id !== +this.$route.params.id) {
-        this.$router.push(`/playlist/${id}`);
+        if (this.$route.name === 'playlist') {
+          this.$router.replace(`/playlist/${id}`);
+        } else {
+          this.$router.push(`/playlist/${id}`);
+        }
         this[types.SET_PLAYLIST_INFO](song.fromPL);
         this.$emit('offMask');
       }

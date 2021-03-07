@@ -3,9 +3,18 @@ import request from "@/network/request";
 /*
 * 获取歌单详情
 */
-export function getPlayListDetail(id) {
+export function getPlaylistDetail(id) {
   return request({
     url: `/playlist/detail?id=${id}`
+  })
+}
+
+/*
+* 获取歌单全部歌曲详情
+*/
+export function getPlaylistSongDetail(id) {
+  return request({
+    url: `/song/detail?ids=${id}`
   })
 }
 

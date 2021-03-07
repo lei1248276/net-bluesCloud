@@ -6,8 +6,8 @@
       <div :class="[isColSongList(getPlaylistInfo.id) ? 'isCollected' : 'colSongList']"
            @click="onColSongList(getPlaylistInfo)" v-if="isShowCol">收藏歌单</div>
     </div>
-    <div class="songItem" @click="onAddSong(index, items)"
-         v-for="(items, index) in songList" :key="index">
+    <div class="songItem" v-for="(items, index) in songList" :key="items.id"
+         @click="onAddSong(index, items)">
       <img :src="[isCollect(items.id) ? collect[0] : collect[1]]" alt="" @click.stop="onCollect(items)">
       <p class="songNum" :class="{activeNum: getCurrentPlayID === items.id}">{{ index + 1 }}</p>
       <div class="songInfo">
@@ -141,7 +141,6 @@ export default {
       // 1.判断添加歌曲是否添加过
       if (!this.getPlayerList.find(value => value.id === song.id)) {
         // 1.2.不存在就添加到播放列表
-        console.log(this.$route.name);
         this[types.ADD_SONG]({
           id: song.id,
           name: song.name,

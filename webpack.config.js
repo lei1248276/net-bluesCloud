@@ -12,7 +12,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'dist'),
     filename: "js/[name].js",
-    chunkFilename: "js/[name].js",
+    // chunkFilename: "js/[name].js",
     publicPath: "/dist/"
   },
   resolve: {
@@ -112,14 +112,14 @@ module.exports = {
       new VueLoaderPlugin(),
       new MiniCssTextPlugin({
         filename: "css/[name].css",
-        chunkFilename: "css/[id].css",
+        // chunkFilename: "css/[id].css",
         ignoreOrder: true,
       }),
-      /*new HtmlWebpackPlugin({
+      new HtmlWebpackPlugin({
         template: "./public/index.html",
         title: "Net-Blues cloud",
         favicon: "./public/favicon.jpg",
-      }),*/
+      }),
     /*new OptimizeCssAssetsPlugin({
       assetNameRegExp: /\.css$/g,
       cssProcessor: require('cssnano'),

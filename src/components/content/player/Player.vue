@@ -27,7 +27,7 @@
 
 
     <!--    播放队列    -->
-    <play-queue v-show="isShowMask" @click.native.self="onMask" @offMask="onMask"></play-queue>
+    <play-queue v-show="isShowMask" @offMask="onMask"></play-queue>
 
     <!--    播放器   -->
     <audio ref="audio" :src="audioSrc" autoplay @canplay="isCanplay" @ended="isEnded"
