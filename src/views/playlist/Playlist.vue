@@ -146,9 +146,9 @@ export default {
   @import "/src/assets/css/base";
   .playlist{
     @include bsContent(0, 54px);
-    background-color: #fff;
+    background: rgba(185, 179, 187, .4);
+    background: linear-gradient(to bottom, #cdd2cd, #5a6387);
     z-index: 11;
-
     .nav{
       .bgImg{
         @include wh(100%, 100%);
@@ -215,6 +215,7 @@ export default {
           position: relative;
           left: 5%;
           top: 10%;
+          padding-right: 5px;
           .creator{
             display: flex;
             align-items: center;

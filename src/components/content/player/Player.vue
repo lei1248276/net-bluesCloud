@@ -67,15 +67,16 @@ export default {
   computed: {
     // 获取播放列表
     ...mapGetters([
-        'getPlayerList',
-        'getCurrentPlayIndex',
-        'getSizePlayer',
-        'isEmptyPlayer',
-        'getCurrentPlayUrl',
-        'getCacheUrl',
-        'getIsPlay',
-        'getAudio',
-        'getProgressMove'
+      'getPlayerList',
+      'getCurrentPlayIndex',
+      'getSizePlayer',
+      'isEmptyPlayer',
+      'getCurrentPlayUrl',
+      'getCacheUrl',
+      'getIsPlay',
+      'getAudio',
+      'getProgressMove',
+      'getPlayMode'
     ]),
     audioSrc() {
       if (!this.isEmptyPlayer) {
@@ -150,7 +151,9 @@ export default {
 
     // audio播放结束时
     isEnded() {
-      this[types.SET_NEXT_SONG]();
+      if (this.getPlayMode !== 1) {
+        this[types.SET_NEXT_SONG]();
+      }
     },
 
     // audio当前播放时间进度

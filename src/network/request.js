@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {net} from '@/common/util'
 
 // const _baseUrl = 'http://api.javaswing.cn';
 const _baseUrl = 'https://api.mtnhao.com';
@@ -9,11 +10,15 @@ export default function request(config) {
     timeout: 5000,
   });
 
+  instance.interceptors.request.use(req => {
+    net.removeReq(config.url);
+    net.addReq(config.url);
+    return req;
+  })
+
   instance.interceptors.response.use(res => {
-    // 百度云请求超时检测
-    if (res.status === 654) {
-      alert('请求超时！')
-    }
+    net.removeReq(config.url);
+
     return res.data
   }, error => {
     console.log(error);

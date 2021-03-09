@@ -154,11 +154,9 @@ export default {
 
     // 点击切换播放模式
     onMode() {
-      let i = this.getPlayMode;
       let l = this.mode.length - 1;
-      this[types.SET_PLAY_MODE](i === l ? 0 : i + 1);
-      this.getAudio.loop = this.getPlayMode === 1;
-      if (this.getPlayMode === 1) {
+      this[types.SET_PLAY_MODE](this.getPlayMode === l ? 0 : 1);
+      if (this.getAudio.loop = this.getPlayMode === 1) {
         this.$toast.show('洗脑模式');
       } else {
         this.$toast.show('列表循环');

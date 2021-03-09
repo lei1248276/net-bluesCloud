@@ -1,3 +1,6 @@
+import axios from 'axios';
+
+
 /*
 * 节流
 */
@@ -26,6 +29,29 @@ export function debounce(cb, delay = 500) {
     }, delay);
     if (callNow) {
       cb.call(this, ...arg);
+    }
+  }
+}
+
+
+/*
+* 请求中断
+*/
+const CancelToken = axios.CancelToken,
+    map = new Map();
+export const net = {
+  addReq(url) {
+    new CancelToken(function (c) {
+      if (!map.has(url)) {
+        map.set(url, c);
+      }
+    });
+  },
+  removeReq(url) {
+    if (map.has(url)) {
+      let cancel = map.get(url);
+      cancel(url);
+      map.delete(url);
     }
   }
 }

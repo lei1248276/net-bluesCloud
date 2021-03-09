@@ -216,7 +216,6 @@ export default {
   @import "src/assets/css/base";
   .songs{
     @include wh(100%, 100%);
-    background-color: #fff;
     .listControl{
       border-bottom: 1px solid rgba(0, 0, 0, .2);
       color: #666;
