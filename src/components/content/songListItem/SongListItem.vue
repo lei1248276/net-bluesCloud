@@ -77,11 +77,11 @@ export default {
         this.timer = null;
       }, 150);
     },
-    toPlaylist(data) {
-      // this.$router.push({path: `/playlist/${data.id}`, query: {data: JSON.stringify(data)}});
+    toPlaylist(params) {
+      // this.$router.push({path: `/playlist/${params.id}`, query: {q: JSON.stringify(params)}});
       // this.$router.push({name: `playlist`, params});
-      this.$router.push(`/playlist/${data.id}`);
-      this[types.SET_PLAYLIST_INFO](data);
+      this.$router.push(`/playlist/${params.id}`);
+      this[types.SET_PLAYLIST_INFO](params);
     }
   },
 }

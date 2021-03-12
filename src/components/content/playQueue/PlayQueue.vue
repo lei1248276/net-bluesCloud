@@ -4,13 +4,14 @@
       <div class="playlist">
         <div class="listNav">
           <p class="title">播放列表({{ this.getSizePlayer }})</p>
-          <img :src="checkMode" alt="" class="mode" @click="onMode">
+          <img :src="checkMode" alt="" class="mode" @click.stop="onMode">
           <p class="collection" @click="onColAll">收藏全部</p>
           <img src="@/assets/img/icon/delete.png" alt="" class="trash" @click="onDeleteAll">
         </div>
         <div class="list">
           <div class="listItems" v-for="(item, index) in getPlayerList" :key="item.id"
-               :class="{isActive: getCurrentPlayIndex === index}" @click="onSwitchSong(index)">
+               :class="{isActive: getCurrentPlayIndex === index}"
+               @click.stop="onSwitchSong(index)">
             <div class="listInfo">
               <p class="name">{{ item.name }}</p>
               <span class="singer"> -- {{ item.singer }}</span>
@@ -171,7 +172,8 @@ export default {
       @include wh(95%, 46%);
       border-radius: 20px;
       color: #666;
-      background-color: #fff;
+      background: rgba(185, 179, 187, .4);
+      background: linear-gradient(to bottom, #cdd2cd, #5a6387);
       position: fixed;
       bottom: 10px;
       left: 0;
@@ -184,7 +186,7 @@ export default {
         position: fixed;
         line-height: 45px;
         font-size: 16px;
-        background-color: #fff;
+        background: #cdd2cd;
         .title{
           width: 150px;
           font-size: 20px;

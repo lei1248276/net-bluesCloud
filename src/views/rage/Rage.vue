@@ -40,12 +40,14 @@ export default {
   },
   created() {
     this.loadData();
+    // console.log(performance.getEntriesByType('navigation'));
   },
   methods: {
     loadData() {
       Promise.all([getBannerList(), getPersonalized(), getPersonalizedMV()])
           .then(res => {
             this.bannerList = res[0].banners;
+            // console.log(this.bannerList);
             this.recommendSL = res[1].result;
             // console.log(this.recommendSL);
             this.recommendMV = res[2].result;

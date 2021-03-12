@@ -5,7 +5,7 @@
     </div>
     <div class="indicator" v-if="indicator">
       <span class="indi-item" v-for="(item,index) in slideCount" :key="index"
-           :class="{active: index === currentIndex-1}"></span>
+           :class="{active: index === currentIndex - 1}"></span>
     </div>
   </div>
 </template>

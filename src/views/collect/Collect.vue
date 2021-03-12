@@ -67,6 +67,8 @@ export default {
   @import "src/assets/css/base";
   #collect{
     @include bsContent();
+    background: rgba(185, 179, 187, .4);
+    background: linear-gradient(to bottom, #cdd2cd, #5a6387);
     .titleSL{
       position: fixed;
       top: 102px;

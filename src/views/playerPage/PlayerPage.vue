@@ -359,7 +359,7 @@ export default {
             position: absolute;
             margin-left: -5px;
             @include speed();
-            transition: all .1s;
+            transition: all .1s linear;
           }
           .changeAnim{
             transform: scale(1.3);

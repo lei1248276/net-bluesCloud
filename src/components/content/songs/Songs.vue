@@ -260,12 +260,12 @@ export default {
           color: #333;
           @include omit();
         }
-        .activeName{
-          color: $bc;
-        }
         .songSinger{
           font-size: 14px;
         }
+      }
+      .activeName{
+        color: $bc !important;
       }
       .songDe{
         background-color: rgba(0, 0, 0, .2);
