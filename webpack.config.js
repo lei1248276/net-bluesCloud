@@ -11,7 +11,7 @@ module.exports = {
   entry: "./src/main.js",
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: "js/[name].js",
+    filename: "js/[name].[chunkhash:8].js",
     // chunkFilename: "js/[name].js",
     publicPath: "./"
   },
@@ -33,20 +33,20 @@ module.exports = {
         vendors: {
           name: `chunk-vendors`,
           test: /[\\/]node_modules[\\/]/,
-          priority: -10,
+          priority: 10,
           chunks: 'initial'
         },
         common: {
           name: `chunk-common`,
-          minChunks: 2,
-          priority: -20,
+          minChunks: 1,
+          priority: 5,
           chunks: 'initial',
           reuseExistingChunk: true
         }
       }
     }
   },
-  devtool: "source-map",
+  // devtool: "source-map",
   module: {
     rules: [
       {
@@ -96,7 +96,7 @@ module.exports = {
           loader: "url-loader",
           options: {
             name: "img/[name].[ext]",
-            limit: 10240,
+            limit: 102400,
             esModule: false
           }
         },
@@ -111,8 +111,7 @@ module.exports = {
   plugins: [
       new VueLoaderPlugin(),
       new MiniCssTextPlugin({
-        filename: "css/[name].css",
-        // chunkFilename: "css/[id].css",
+        filename: "css/[name].[chunkhash:8].css",
         ignoreOrder: true,
       }),
       new HtmlWebpackPlugin({
