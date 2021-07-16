@@ -1,6 +1,7 @@
 <template>
   <div id="rage">
     <!-- 网络请求等待动画 -->
+<!--    <h1>{{time}}</h1>-->
     <load-wait v-if="isLoaded"></load-wait>
     <scroll class="content" ref="scroll" v-if="!isLoaded">
       <!-- rage页面轮播图 -->
@@ -10,6 +11,7 @@
       <!-- rage页面推荐MV -->
       <rage-recommendMV :recommendMV="recommendMV" @onRefresh="isLoadedImg"></rage-recommendMV>
     </scroll>
+<!--    <iframe src="http://localhost:8081/home" style="display: none" class="iframe"></iframe>-->
   </div>
 </template>
 
@@ -29,6 +31,7 @@ export default {
       recommendSL: null,
       recommendMV: null,
       isLoaded: true,
+      time: 0
     }
   },
   components:{
@@ -42,6 +45,28 @@ export default {
     this.loadData();
     // console.log(performance.getEntriesByType('navigation'));
   },
+  /*mounted() {
+    let that = this;
+    let frame = document.querySelector('.iframe');
+    window.onclick = function send () {
+      frame.contentWindow.postMessage(Date.now(), 'http://localhost:8081/home');
+    }
+
+    window.onmessage = function (e) {
+      if (typeof e.data === 'number') {
+        // that.time = e.data;
+        // this.localStorage.setItem('share', e.data);
+        document.cookie = `time=${e.data}`
+        that.time = document.cookie;
+        // console.log(that.$route);
+      }
+    };
+    /!*window.onstorage = function (e) {
+      that.time = e.newValue;
+      console.log(document.cookie);
+    };*!/
+
+  },*/
   methods: {
     loadData() {
       Promise.all([getBannerList(), getPersonalized(), getPersonalizedMV()])
@@ -63,6 +88,11 @@ export default {
     isLoadedImg() {
       this.$refs.scroll.refresh();
     }
+  },
+  watch: {
+    time(newValue) {
+      console.log(newValue);
+    }
   }
 }
 </script>
@@ -71,6 +101,13 @@ export default {
   @import "src/assets/css/base";
   #rage{
     @include bsContent(0, 54px);
+    h1{
+      text-align: center;
+      font-size: 36px;
+      background-color: red;
+      position: relative;
+      z-index: 99999;
+    }
   }
   .loadWait{
     @include center();

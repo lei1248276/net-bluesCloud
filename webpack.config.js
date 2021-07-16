@@ -7,13 +7,13 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const { CleanWebpackPlugin }  = require('clean-webpack-plugin');
 
 module.exports = {
-  mode: "development",
+  mode: "production",
   entry: "./src/main.js",
   output: {
     path: path.join(__dirname, 'dist'),
     filename: "js/[name].js",
     // chunkFilename: "js/[name].js",
-    publicPath: "/dist/"
+    publicPath: "./"
   },
   resolve: {
     extensions: ['.js', '.vue', '.css', '.scss'],
@@ -65,7 +65,7 @@ module.exports = {
           {
             loader: "sass-loader",
             options: {
-              implementation: require('node-sass'),
+              implementation: require('sass'),
               sourceMap: true
             }
           }
@@ -116,28 +116,25 @@ module.exports = {
         ignoreOrder: true,
       }),
       new HtmlWebpackPlugin({
-        template: "./public/index.html",
+        template: "public/index.html",
         title: "Net-Blues cloud",
-        favicon: "./public/favicon.jpg",
+        favicon: "public/favicon.jpg",
       }),
-    /*new OptimizeCssAssetsPlugin({
+    new OptimizeCssAssetsPlugin({
       assetNameRegExp: /\.css$/g,
       cssProcessor: require('cssnano'),
       cssProcessorPluginOptions: {
         preset: ['default', { discardComments: { removeAll: true } }],
       },
       canPrint: true
-    }),*/
+    }),
       // new BundleAnalyzerPlugin(),
       // new CleanWebpackPlugin()
   ],
   devServer: {
-    // publicPath: '/dist/',
-    // contentBase: path.join(__dirname, 'dist'),
     compress: true,
     historyApiFallback: true,
-    host: '0.0.0.0',
-    port: 8080,
+    host: 'localhost',
     open: 'http://localhost:8080'
   }
 }

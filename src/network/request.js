@@ -1,8 +1,7 @@
 import axios from 'axios';
 import {net} from '@/common/util'
 
-// const _baseUrl = 'http://api.javaswing.cn';
-const _baseUrl = 'https://api.mtnhao.com';
+const _baseUrl = 'https://netease-music-api.fe-mm.com';
 
 export default function request(config) {
   const instance = axios.create({

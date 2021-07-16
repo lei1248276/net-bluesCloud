@@ -1,9 +1,7 @@
 <template>
   <swiper v-if="Object.keys(this.bannerList).length > 0">
-    <swiper-item>
-      <a :href="items.url" v-for="(items, index) in bannerList" :key="index"  class="slide">
-        <img :src="items.imageUrl" alt="" class="imgItem">
-      </a>
+    <swiper-item >
+      <img :src="items.imageUrl" alt="" class="slide" v-for="(items, index) in bannerList" :key="index">
     </swiper-item>
   </swiper>
 </template>
@@ -41,8 +39,5 @@ export default {
   .slide{
     flex-shrink: 0;
     @include wh(100%, 174px);
-    .imgItem{
-      @include wh(100%, 100%);
-    }
   }
 </style>

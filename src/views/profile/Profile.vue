@@ -1,6 +1,7 @@
 <template>
   <div id="profile">
     <scroll class="content">
+      <test></test>
       <ul>
         <li>1</li>
         <li>2</li>
@@ -109,11 +110,13 @@
 
 <script>
 import Scroll from "@/components/common/scroll/Scroll";
+import test from "./test";
 
 export default {
   name: "Profile",
   components: {
-    Scroll
+    Scroll,
+    test
   }
 }
 </script>
@@ -126,4 +129,9 @@ export default {
       @include bsContent(102px, 54px);
     }
   }
+  /*#profile :deep(.test){
+    width: 200px;
+    height: 200px;
+    background-color: deeppink;
+  }*/
 </style>
